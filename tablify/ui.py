@@ -2,20 +2,24 @@
 User Interface
 """
 from collections import defaultdict
+import logging
 from typing import Dict, List
 
 from prompt_toolkit import prompt
 from prompt_toolkit.validation import Validator
 
 
+logger = logging.getLogger(__name__)
+
+
 # Validators
-is_required_validator = Validator(
+is_required_validator = Validator.from_callable(
     lambda x: bool(str(x)),
     error_message='This field is required.',
     move_cursor_to_end=True
 )
 
-
+# UI class
 class UserColumnSettings:
     """Captures and stores user-specified column settings."""
 
@@ -26,8 +30,15 @@ class UserColumnSettings:
     def get_input(self) -> None:
         """Shows input prompt and gets user input."""
         for col in self.columns:
-            col_settings = self._process_column(col)
-            self.settings[col].update(col_settings)
+            try:
+                col_settings = self._process_column(col)
+                if not col_settings:
+                    raise ValueError('No settings entered')
+                self.settings[col].update(col_settings)
+            except Exception as e:
+                logger.warning(
+                    f'Error getting settings for column {col}: {e}'
+                )
 
     def _process_column(self, column_name: str) -> Dict[str, str]:
         """Captures user settings for given column."""
