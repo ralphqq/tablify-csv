@@ -14,11 +14,13 @@ from .ui import UserColumnSettings
 
 logger = logging.getLogger(__name__)
 
+
 app = typer.Typer()
+
 
 @app.command('tablify')
 def tablify(csv_file: str, output_file: Optional[str] = '') -> None:
-    """Converts CSV file into HTML table and saves to output file."""
+    """Converts CSV into HTML table and saves it to output file."""
     try:
         csv_table = CSVTableReader(csv_file)
         user_input = UserColumnSettings(csv_table.columns)
