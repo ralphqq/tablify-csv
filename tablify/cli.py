@@ -3,6 +3,7 @@ CLI Command
 """
 import asyncio
 import logging
+from typing import Optional
 
 import typer
 
@@ -16,7 +17,8 @@ logger = logging.getLogger(__name__)
 app = typer.Typer()
 
 @app.command('tablify')
-def tablify(csv_file: str, output_file: str = '') -> None:
+def tablify(csv_file: str, output_file: Optional[str] = '') -> None:
+    """Converts CSV file into HTML table and saves to output file."""
     try:
         csv_table = CSVTableReader(csv_file)
         user_input = UserColumnSettings(csv_table.columns)
@@ -32,6 +34,5 @@ def tablify(csv_file: str, output_file: str = '') -> None:
         logger.info(f'Finished writing converted table to {fpath}')
     except KeyboardInterrupt:
         logger.info('Canceled')
-
     except Exception as e:
         logger.error(f'An unhandled error occurred: {e}')

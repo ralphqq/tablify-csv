@@ -1,43 +1,11 @@
 """
 Tests for HTML renderer
 """
-from lxml import html
 import pytest
 
-from tablify.reader import CSVTableReader
-from tablify.renderer import HTMLRenderer
-from tablify.ui import UserColumnSettings
-
-CLASS_NAME = 'some-class-name'
-HEADINGS = ['Name', 'Year of Birth', 'Instrument Played']
+from tests.helpers import CLASS_NAME, HEADINGS
 
 
-# Fixtures
-@pytest.fixture
-def data_and_columns(csv_filename):
-    csv_table = CSVTableReader(csv_filename)
-
-    col_names = csv_table.columns
-    col_settings = {
-        col_names[i]: {'heading': HEADINGS[i]} for i in range(len(col_names))
-    }
-    col_settings['birth_year']['class_name'] = CLASS_NAME
-
-    columns = UserColumnSettings(col_names)
-    columns.settings = col_settings
-
-    return csv_table, columns
-
-
-@pytest.fixture
-async def html_table(data_and_columns):
-    table, columns = data_and_columns
-    html_renderer = HTMLRenderer(table.data, columns)
-    result = await html_renderer.render()
-    yield html.fromstring(result)
-
-
-# Tests
 def test_result_has_valid_table_headings(html_table):
     headings = html_table.xpath('//th')
     assert html_table.xpath('//table/thead')
