@@ -48,8 +48,13 @@ def data_and_columns(csv_filename):
 
 
 @pytest.fixture
-async def html_table(data_and_columns):
+async def html_render_result(data_and_columns):
     table, columns = data_and_columns
     html_renderer = HTMLRenderer(table.data, columns)
     result = await html_renderer.render()
-    yield html.fromstring(result)
+    yield result
+
+
+@pytest.fixture
+async def html_table(html_render_result):
+    yield html.fromstring(html_render_result)

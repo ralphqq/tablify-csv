@@ -3,6 +3,7 @@ CLI Command
 """
 import asyncio
 import logging
+import sys
 from typing import Optional
 
 import typer
@@ -38,3 +39,4 @@ def tablify(csv_file: str, output_file: Optional[str] = '') -> None:
         logger.info('Canceled')
     except Exception as e:
         logger.error(f'An unhandled error occurred: {e}')
+        sys.exit(1)
