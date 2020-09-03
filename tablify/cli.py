@@ -36,7 +36,7 @@ def tablify(csv_file: str, output_file: Optional[str] = '') -> None:
 
         logger.info(f'Finished writing converted table to {fpath}')
     except KeyboardInterrupt:
-        logger.info('Canceled')
+        logger.warning('Canceled')
     except Exception as e:
         logger.error(f'An unhandled error occurred: {e}')
         sys.exit(1)

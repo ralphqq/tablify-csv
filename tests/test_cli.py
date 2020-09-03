@@ -83,3 +83,13 @@ def test_tablify_command_errors(runner, mocked_calls):
     mocked_async_render.side_effect = ValueError
     result = runner.invoke(app, INPUT_FILENAME)
     assert result.exit_code == 1
+
+
+def test_tablify_command_keyboard_interrupt(runner, mocked_calls, caplog):
+    _, mocked_columns, _, _ = mocked_calls
+    mocked_columns.return_value.get_input.side_effect = KeyboardInterrupt
+
+    result = runner.invoke(app, INPUT_FILENAME)
+
+    assert result.exit_code == 0
+    assert 'Canceled' in caplog.text
