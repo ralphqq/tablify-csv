@@ -9,7 +9,7 @@ LOGLEVEL = 'INFO'
 
 
 def main():
-logging.basicConfig(
+    logging.basicConfig(
         format='%(message)s',
         level=getattr(logging, LOGLEVEL)
     )
