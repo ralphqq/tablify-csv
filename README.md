@@ -21,11 +21,11 @@ It's recommended to create and activate a virtual environment before installing.
 To install the latest development version, run the following:
 
 ```console
-$ pip install git+https://github.com/ralphqq/gitchm
+$ pip install git+https://github.com/ralphqq/tablify-csv
 ```
 
 ## Usage
-If applicable, make sure that the virtual environment where you pip installed gitchm is activated.
+If applicable, make sure that the virtual environment where you pip installed `tablify-csv` is activated.
 
 To convert a CSV file, run:
 
