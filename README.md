@@ -1,4 +1,7 @@
 # tablify-csv
+
+![Build Status](https://github.com/ralphqq/tablify-csv/workflows/ralphqq-tablify-csv-ci/badge.svg)
+
 CLI tool to convert data in a CSV file into an HTML table with basic formatting.
 
 The tool lets you:
