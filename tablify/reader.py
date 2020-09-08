@@ -24,16 +24,16 @@ class CSVTableReader:
             self.data = self._get_csv_data()
             self.columns = list(self.data[0].keys())
         except Exception as e:
-            raise ValueError(f'Error during CSV reading/parsing: {e}')
+            raise ValueError(f"Error during CSV reading/parsing: {e}")
 
     def _get_csv_data(self) -> list:
         """Reads rows in CSV file and returns them as list of dicts."""
         data = []
-        with open(self.csv_file, 'r', encoding='utf-8') as fp:
+        with open(self.csv_file, "r", encoding="utf-8") as fp:
             reader = csv.DictReader(fp)
             data = list(reader)
 
         if not data:
-            raise ValueError('CSV file has no data')
+            raise ValueError("CSV file has no data")
 
         return data

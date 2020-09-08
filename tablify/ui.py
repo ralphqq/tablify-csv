@@ -15,9 +15,10 @@ logger = logging.getLogger(__name__)
 # Validators
 is_required_validator = Validator.from_callable(
     lambda x: bool(str(x)),
-    error_message='This field is required.',
-    move_cursor_to_end=True
+    error_message="This field is required.",
+    move_cursor_to_end=True,
 )
+
 
 # UI class
 class UserColumnSettings:
@@ -33,19 +34,17 @@ class UserColumnSettings:
             try:
                 col_settings = self._process_column(col)
                 if not col_settings:
-                    raise ValueError('No settings entered')
+                    raise ValueError("No settings entered")
                 self.settings[col].update(col_settings)
             except Exception as e:
-                logger.warning(
-                    f'Error getting settings for column {col}: {e}'
-                )
+                logger.warning(f"Error getting settings for column {col}: {e}")
 
     def _process_column(self, column_name: str) -> Dict[str, str]:
         """Captures user settings for given column."""
         heading = prompt(
-            f'Column heading for {column_name}',
+            f"Column heading for {column_name}",
             validator=is_required_validator,
-            validate_while_typing=False
+            validate_while_typing=False,
         )
-        class_name = prompt(f'Class name for {column_name} (optional)')
-        return {'heading': heading, 'class_name': class_name}
+        class_name = prompt(f"Class name for {column_name} (optional)")
+        return {"heading": heading, "class_name": class_name}

@@ -19,8 +19,8 @@ logger = logging.getLogger(__name__)
 app = typer.Typer()
 
 
-@app.command('tablify')
-def tablify(csv_file: str, output_file: Optional[str] = '') -> None:
+@app.command("tablify")
+def tablify(csv_file: str, output_file: Optional[str] = "") -> None:
     """Converts CSV into HTML table and saves it to output file."""
     try:
         csv_table = CSVTableReader(csv_file)
@@ -30,13 +30,13 @@ def tablify(csv_file: str, output_file: Optional[str] = '') -> None:
         html_renderer = HTMLRenderer(csv_table.data, user_input)
         html_table = asyncio.run(html_renderer.render())
 
-        fpath = output_file if output_file else f'{csv_file}.html'
-        with open(fpath, 'w', encoding='utf-8') as f:
+        fpath = output_file if output_file else f"{csv_file}.html"
+        with open(fpath, "w", encoding="utf-8") as f:
             f.write(html_table)
 
-        logger.info(f'Finished writing converted table to {fpath}')
+        logger.info(f"Finished writing converted table to {fpath}")
     except KeyboardInterrupt:
-        logger.warning('Canceled')
+        logger.warning("Canceled")
     except Exception as e:
-        logger.error(f'An unhandled error occurred: {e}')
+        logger.error(f"An unhandled error occurred: {e}")
         sys.exit(1)

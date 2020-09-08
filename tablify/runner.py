@@ -5,13 +5,10 @@ import logging
 
 from .cli import app
 
-LOGLEVEL = 'INFO'
+LOGLEVEL = "INFO"
 
 
 def main():
-    logging.basicConfig(
-        format='%(message)s',
-        level=getattr(logging, LOGLEVEL)
-    )
-    logging.debug('Initializing')
+    logging.basicConfig(format="%(message)s", level=getattr(logging, LOGLEVEL))
+    logging.debug("Initializing")
     app()

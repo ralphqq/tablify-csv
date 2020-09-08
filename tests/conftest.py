@@ -24,11 +24,12 @@ from tests.helpers import (
 
 @pytest.fixture
 def csv_filename():
-    return os.path.join(TEST_DATA_DIR_PATH, 'valid_data.csv')
+    return os.path.join(TEST_DATA_DIR_PATH, "valid_data.csv")
+
 
 @pytest.fixture
 def invalid_csv_filename():
-    return os.path.join(TEST_DATA_DIR_PATH, 'invalid_data.csv')
+    return os.path.join(TEST_DATA_DIR_PATH, "invalid_data.csv")
 
 
 @pytest.fixture
@@ -37,9 +38,9 @@ def data_and_columns(csv_filename):
 
     col_names = csv_table.columns
     col_settings = {
-        col_names[i]: {'heading': HEADINGS[i]} for i in range(len(col_names))
+        col_names[i]: {"heading": HEADINGS[i]} for i in range(len(col_names))
     }
-    col_settings['birth_year']['class_name'] = CLASS_NAME
+    col_settings["birth_year"]["class_name"] = CLASS_NAME
 
     columns = UserColumnSettings(col_names)
     columns.settings = col_settings

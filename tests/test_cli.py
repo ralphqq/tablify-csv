@@ -9,7 +9,7 @@ from typer.testing import CliRunner
 from tablify.cli import app
 
 
-INPUT_FILENAME = 'data.csv'
+INPUT_FILENAME = "data.csv"
 
 
 @pytest.fixture
@@ -22,22 +22,19 @@ def mocked_calls(mocker, data_and_columns, html_render_result):
     csv_table, columns = data_and_columns
 
     mocked_csv_table = mocker.patch(
-        'tablify.cli.CSVTableReader',
-        return_value=csv_table
+        "tablify.cli.CSVTableReader", return_value=csv_table
     )
     mocked_columns = mocker.patch(
-        'tablify.cli.UserColumnSettings',
-        return_value=columns
+        "tablify.cli.UserColumnSettings", return_value=columns
     )
     mocked_columns.return_value.get_input = MagicMock()
     mocked_async_render = mocker.patch(
-        'tablify.cli.HTMLRenderer.render',
-        new_callable=AsyncMock
+        "tablify.cli.HTMLRenderer.render", new_callable=AsyncMock
     )
     mocked_async_render.return_value = html_render_result
 
     m = mock_open()
-    mocked_open = mocker.patch('tablify.cli.open', m)
+    mocked_open = mocker.patch("tablify.cli.open", m)
 
     return (
         mocked_csv_table,
@@ -49,32 +46,26 @@ def mocked_calls(mocker, data_and_columns, html_render_result):
 
 def test_tablify_command_with_no_output_file(runner, mocked_calls):
     mocked_csv_table, _, _, mocked_open = mocked_calls
-    output_file = f'{INPUT_FILENAME}.html'
+    output_file = f"{INPUT_FILENAME}.html"
 
     result = runner.invoke(app, INPUT_FILENAME)
 
     assert result.exit_code == 0
     mocked_csv_table.assert_called_once_with(INPUT_FILENAME)
-    mocked_open.assert_called_once_with(output_file, 'w', encoding='utf-8')
+    mocked_open.assert_called_once_with(output_file, "w", encoding="utf-8")
 
 
 def test_tablify_command_with_output_file(runner, mocked_calls):
     _, _, _, mocked_open = mocked_calls
-    default_output_file = f'{INPUT_FILENAME}.html'
-    actual_output_file = 'converted_table.html'
+    actual_output_file = "converted_table.html"
 
     result = runner.invoke(
-        app, [
-        INPUT_FILENAME,
-        '--output-file',
-        actual_output_file
-    ])
+        app, [INPUT_FILENAME, "--output-file", actual_output_file]
+    )
 
     assert result.exit_code == 0
     mocked_open.assert_called_once_with(
-        actual_output_file,
-        'w',
-        encoding='utf-8'
+        actual_output_file, "w", encoding="utf-8"
     )
 
 
@@ -92,4 +83,4 @@ def test_tablify_command_keyboard_interrupt(runner, mocked_calls, caplog):
     result = runner.invoke(app, INPUT_FILENAME)
 
     assert result.exit_code == 0
-    assert 'Canceled' in caplog.text
+    assert "Canceled" in caplog.text
