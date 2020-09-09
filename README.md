@@ -74,15 +74,15 @@ $ pre-commit install
     ```console
     $ git checkout -b feature/some-new-thing
     ```
-5. Commit your changes:
+6. Commit your changes:
     ```console
     $ git commit -m "Develop new thing"
     ```
-6. Push to the branch:
+7. Push to the branch:
     ```console
     $ git push origin feature/some-new-thing
     ```
-7. Create a pull request
+8. Create a pull request
 
 ## License
 `tablify-csv` is available under the [MIT License](https://opensource.org/licenses/MIT).
