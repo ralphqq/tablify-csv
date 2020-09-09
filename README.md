@@ -56,11 +56,21 @@ $ tablify-csv CSV_FILENAME --output-file OUTPUT_FILENAME
     $ pytest
     ```
 
+**Note:** To ensure coding style consistency, this project uses pre-commit hooks. You may also want to initialize pre-commits into your local development clone (this is strongly recommended if you want to contribute, see `Contributing` section).
+
+```console
+$ pre-commit install
+```
+
 ## Contributing
 1. Fork this repo at https://github.com/ralphqq/tablify-csv
 2. Clone your fork into your local machine
 3. Follow steps in Development Setup but skip step 1
-4. Create your feature branch:
+4. Initialize pre-commit hooks
+    ```console
+    $ pre-commit install
+    ```
+5. Create your feature branch:
     ```console
     $ git checkout -b feature/some-new-thing
     ```
