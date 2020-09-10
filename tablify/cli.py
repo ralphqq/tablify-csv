@@ -20,7 +20,12 @@ app = typer.Typer()
 
 
 @app.command("tablify")
-def tablify(csv_file: str, output_file: Optional[str] = "") -> None:
+def tablify(
+    csv_file: str = typer.Argument(..., help="Filename of CSV data file"),
+    output_file: Optional[str] = typer.Option(
+        "", help="Filename of output file"
+    ),
+) -> None:
     """Converts CSV into HTML table and saves it to output file."""
     try:
         csv_table = CSVTableReader(csv_file)
