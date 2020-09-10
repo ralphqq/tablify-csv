@@ -21,6 +21,12 @@ Please see `requirements.txt` and `dev-requirements.txt` for full list of depend
 ## Installation
 It's recommended to create and activate a virtual environment before installing.
 
+For the latest stable release, install from [PyPI package](https://pypi.org/project/tablify-csv/) with `pip`:
+
+```console
+$ pip install tablify-csv
+```
+
 To install the latest development version, run the following:
 
 ```console
