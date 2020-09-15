@@ -6,6 +6,7 @@ import logging
 import sys
 from typing import Optional
 
+import pyperclip
 import typer
 
 from .reader import CSVTableReader
@@ -40,8 +41,17 @@ def tablify(
         html_table = asyncio.run(html_renderer.render())
 
         fpath = output_file if output_file else f"{csv_file}.html"
-        save_to_file(html_table, fpath)
-        logger.info(f"Finished writing converted table to {fpath}")
+
+        if not clip:
+            save_to_file(html_table, fpath)
+            logger.info(f"Finished writing converted table to {fpath}")
+        else:
+            pyperclip.copy(html_table)
+            logger.info("Copied HTML table to clipboard")
+
+            if output_file:
+                save_to_file(html_table, fpath)
+                logger.info(f"Finished writing converted table to {fpath}")
     except KeyboardInterrupt:
         logger.warning("Canceled")
     except Exception as e:
