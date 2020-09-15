@@ -24,6 +24,7 @@ INFO = get_info()
 REQUIRES = [
     "lxml==4.5.2",
     "prompt-toolkit==3.0.6",
+    "pyperclip==1.8.0",
     "typer==0.3.2",
 ]
 TEST_REQUIRES = [

@@ -1,7 +1,7 @@
 """
 Unit tests for CLI commands
 """
-from unittest.mock import AsyncMock, call, MagicMock, mock_open
+from unittest.mock import AsyncMock, call, MagicMock
 
 import pytest
 from typer.testing import CliRunner
@@ -33,30 +33,29 @@ def mocked_calls(mocker, data_and_columns, html_render_result):
     )
     mocked_async_render.return_value = html_render_result
 
-    m = mock_open()
-    mocked_open = mocker.patch("tablify.cli.open", m)
+    mocked_save = mocker.patch("tablify.cli.save_to_file")
 
     return (
         mocked_csv_table,
         mocked_columns,
         mocked_async_render,
-        mocked_open,
+        mocked_save,
     )
 
 
 def test_tablify_command_with_no_output_file(runner, mocked_calls):
-    mocked_csv_table, _, _, mocked_open = mocked_calls
+    mocked_csv_table, _, _, mocked_save = mocked_calls
     output_file = f"{INPUT_FILENAME}.html"
 
     result = runner.invoke(app, INPUT_FILENAME)
 
     assert result.exit_code == 0
     mocked_csv_table.assert_called_once_with(INPUT_FILENAME)
-    mocked_open.assert_called_once_with(output_file, "w", encoding="utf-8")
+    assert output_file in mocked_save.call_args.args
 
 
 def test_tablify_command_with_output_file(runner, mocked_calls):
-    _, _, _, mocked_open = mocked_calls
+    _, _, _, mocked_save = mocked_calls
     actual_output_file = "converted_table.html"
 
     result = runner.invoke(
@@ -64,9 +63,7 @@ def test_tablify_command_with_output_file(runner, mocked_calls):
     )
 
     assert result.exit_code == 0
-    mocked_open.assert_called_once_with(
-        actual_output_file, "w", encoding="utf-8"
-    )
+    assert actual_output_file in mocked_save.call_args.args
 
 
 def test_tablify_command_errors(runner, mocked_calls):
