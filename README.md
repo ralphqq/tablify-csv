@@ -35,8 +35,15 @@ $ pip install git+https://github.com/ralphqq/tablify-csv
 ```
 
 ## Usage
-If applicable, make sure that the virtual environment where you pip installed `tablify-csv` is activated.
+Once installed, `tablify-csv` can now be used without any additional configuration required. If applicable, make sure that the virtual environment where you pip installed `tablify-csv` is activated.
 
+### Valid CSV File
+The current version of `tablify-csv` assumes the CSV file to be parsed has:
+
+- A header row with the column names in the first line of the file
+- No empty lines between the header row and the first data row (i.e., the first data row immediately follows the header row)
+
+### Usage Examples
 To convert a CSV file:
 
 ```console
